@@ -3,3 +3,5 @@ web/dist/
 server/data/
 .DS_Store
 *.log
+.vercel
+.env*
