@@ -1,0 +1,15 @@
+{
+  "name": "takt-hands",
+  "description": "Target Pipeline IR for PipeGen Stage 2. Hand keypoints per station camera, no video egress.",
+  "nodes": [
+    { "id": "src", "type": "source", "params": { "uri": "v4l2:///dev/video0 | rtsp://<cam>", "width": 1280, "height": 720, "fps": 30 } },
+    { "id": "mux", "type": "nvstreammux", "params": { "batch-size": 4, "live-source": true } },
+    { "id": "det", "type": "nvinfer", "params": { "role": "primary", "model": "person-hand-detector.onnx", "engine": "TensorRT FP16 | INT8", "classes": ["person", "hand"] } },
+    { "id": "trk", "type": "nvtracker", "params": { "algo": "NvDCF" } },
+    { "id": "lmk", "type": "nvinfer", "params": { "role": "secondary", "operate-on-class": "hand", "model": "hand-landmark-21.onnx", "engine": "TensorRT FP16 | INT8", "output": "21 keypoints" } },
+    { "id": "conv", "type": "nvmsgconv", "params": { "schema": "takt-keypoints-v1" } },
+    { "id": "sink", "type": "nvmsgbroker+stdout", "params": { "proto": "mqtt", "topic": "takt/keypoints" } }
+  ],
+  "edges": [["src", "mux"], ["mux", "det"], ["det", "trk"], ["trk", "lmk"], ["lmk", "conv"], ["conv", "sink"]],
+  "downstream": "edge/takt_edge.py -> Takt server /api/ingest/frames -> shared/engine.ts CycleTracker"
+}

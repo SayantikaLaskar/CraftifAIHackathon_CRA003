@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* surfaces & ink (validated reference palette) */
+  --color-page: #f9f9f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #fcfcfb;
+  --color-sunken: #f3f3f0;
+  --color-ink: #0b0b0b;
+  --color-ink-2: #52514e;
+  --color-muted: #898781;
+  --color-line: #e8e7e1;
+  --color-grid: #e1e0d9;
+  --color-axis: #c3c2b7;
+
+  /* brand */
+  --color-brand: #2a78d6;
+  --color-brand-600: #256abf;
+  --color-brand-700: #1c5cab;
+  --color-brand-50: #eef5fd;
+  --color-brand-100: #cde2fb;
+
+  /* status: reserved, always shown with icon + label */
+  --color-good: #0ca30c;
+  --color-good-ink: #006300;
+  --color-good-bg: #ecf8ec;
+  --color-warning: #fab219;
+  --color-warning-ink: #8a5a00;
+  --color-warning-bg: #fef6e4;
+  --color-serious: #ec835a;
+  --color-serious-ink: #a8431b;
+  --color-serious-bg: #fdf0ea;
+  --color-critical: #d03b3b;
+  --color-critical-ink: #a82525;
+  --color-critical-bg: #fbeceb;
+
+  /* chart series */
+  --color-s-work: #2a78d6;
+  --color-s-pick: #1baf7a;
+  --color-s-place: #6250d6;
+  --color-s-waste: #eda100;
+
+  --radius-card: 12px;
+  --shadow-card: 0 1px 2px rgba(11, 11, 11, 0.04), 0 0 0 1px rgba(11, 11, 11, 0.06);
+  --shadow-pop: 0 8px 24px rgba(11, 11, 11, 0.08), 0 0 0 1px rgba(11, 11, 11, 0.06);
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { @apply bg-page text-ink font-sans; font-feature-settings: "cv11", "ss01"; }
+  ::selection { background: var(--color-brand-100); }
+}
+
+@utility tnum { font-variant-numeric: tabular-nums; }
+@utility card { background: var(--color-surface); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+@utility eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-muted); }
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@keyframes flash-in { from { background: var(--color-brand-50); } to { background: transparent; } }
+.flash-in { animation: flash-in 1.2s ease-out; }
+
+.recharts-cartesian-axis-tick text { fill: var(--color-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.recharts-tooltip-cursor { stroke: var(--color-axis); }

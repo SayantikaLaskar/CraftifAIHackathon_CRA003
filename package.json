@@ -1,0 +1,47 @@
+{
+  "name": "takt",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Takt \u2014 the AI time-and-motion engineer for assembly lines. Camera-based cycle time, line balance and OEE on edge GPUs via CraftifAI PipeGen.",
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,magenta \"node --watch server/index.ts\" \"vite --config web/vite.config.ts\"",
+    "build": "vite build --config web/vite.config.ts",
+    "start": "node server/index.ts",
+    "test": "node --test shared/*.test.ts",
+    "typecheck": "tsc --noEmit -p .",
+    "build:standalone": "VITE_STANDALONE=1 vite build --config web/vite.config.ts"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@mediapipe/tasks-vision": "^0.10.14",
+    "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.57.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/ws": "^8.18.2",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.6",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SayantikaLaskar/takt.git"
+  },
+  "license": "MIT"
+}
